@@ -1,0 +1,69 @@
+行为分析ck的vpn
+118.244.200.104 surui@csii.com.cn   Csii@5136      测试环境	端口10443
+115.182.90.196  zhanghongwei_nj@csii.com.cn  Csii@13110  预生产old（生产环境）	端口10443
+118.244.200.104 zhanghongwei_nj@csii.com.cn  Csii@13110  预生产new	端口10443
+118.244.200.104	zhaofang@csii.com.cn	Zf123123	生产环境
+前端地址：
+http://118.144.87.45:51234/login?redirect=%2FplateForm%2Fproject   测试环境  admin 123456
+http://172.16.61.20:30930/UACADMIN/index  vp预生产     admin  xwfx123456
+http://172.16.100.103:19888				生产环境
+
+测试环境：
+2台clickhouse数据库，1台mysql
+
+堡垒机：
+https://aaaa.csii.com.cn:21843/core/auth/login/
+surui@csii.com.cn
+Csii@5136
+
+
+服务器
+测试环境：root Csii@kelan0720
+预生产环境：root passwd
+poc环境：root Csii@kelan0725
+
+
+后管用户
+amdin 123456
+
+clickhouse启动：
+/usr/bin/clickhouse-server --config-file /etc/clickhouse-server/config.xml --daemon
+clickhouse-client --user default
+
+mysql启动：
+service mysql start
+
+redis启动：
+redis-server redis.config
+redis-sentinel sentinel.conf
+
+nacos启动：
+单机：./startup.sh
+集群：./startup.sh -p embedded
+
+kafka启动：
+/opt/kafka/bin/kafka-server-start.sh -daemon /opt/kafka/config/kraft/server.properties
+/opt/kafka/bin/kafka-server-start-jaas.sh -daemon /opt/kafka/config/kraft/server1.properties
+/opt/kafka/bin/kafka-server-start-jaas1.sh -daemon /opt/kafka/config/kraft/server11.properties
+tail -99f /opt/kafka/logs/server.log
+生产kafka启动用的server1/server2/server3配置文件启动的
+
+查看端口：
+netstat -tulnp
+
+
+
+
+kafka某些行内规定需要加认证方式，scram和oauthbearer二选一，需求调整；
+
+
+
+优化1：废弃代码删除
+优化2：sundb环境整合，之前看到批量新增那块代码，业务逻辑极其差，这块需要重构逻辑
+优化3：uac_analysis_config，uac_analysis_config_share，uac_group_shared_role，uac_group_shared_user，uac_chart 考虑
+合并，之前是因为2个人开发，导致没有合并掉，现在可以考虑合并
+优化4：标签那块之前是没有附加在用户表后面，作为添加列，我看神策应该是一个人只能拥有一个标签，例如自定义标签，只能默认按匹配到的第一个去取
+优化5：属性分析和分布分析需要根据上述进行修改、
+优化6：sdk错误上报数据，数据不准确问题，这个后面可能要讨论怎么搞
+优化7：黛西的部分分析模块需要研究一下之前是不是对的、
+优化8：其他
