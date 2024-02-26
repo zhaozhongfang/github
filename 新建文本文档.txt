@@ -12,3 +12,7 @@ http://172.16.100.103:19888/UACADMIN/login?redirect=%2Findex
 https://aaaa.csii.com.cn:21843/core/auth/login/
 
 https://www.italent.cn/Login
+
+
+下载地址
+http://192.168.0.194:9004/download/
