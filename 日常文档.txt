@@ -45,17 +45,34 @@ kafka启动：
 /opt/kafka/bin/kafka-server-start.sh -daemon /opt/kafka/config/kraft/server.properties
 /opt/kafka/bin/kafka-server-start-jaas.sh -daemon /opt/kafka/config/kraft/server1.properties
 /opt/kafka/bin/kafka-server-start-jaas1.sh -daemon /opt/kafka/config/kraft/server11.properties
-tail -99f /opt/kafka/logs/server.log
+tail -999f /opt/kafka/logs/server.log
 生产kafka启动用的server1/server2/server3配置文件启动的
 
 查看端口：
 netstat -tulnp
 
+oracle启动：
+su oracle
+source ~/.bash_profile
+lsnrctl start
+sqlplus / as sysdba
+startup
 
+SELECT
+    initial_query_id,query_id,
+      query,
+    elapsed,
+    formatReadableSize(memory_usage),
+    formatReadableSize(peak_memory_usage)
+  
+FROM system.processes
+ORDER BY peak_memory_usage DESC
+LIMIT 10;
+
+kill query where query_id = '77276aab-239d-474f-963d-1c231ba645b1';
 
 
 kafka某些行内规定需要加认证方式，scram和oauthbearer二选一，需求调整；
-
 
 
 优化1：废弃代码删除
