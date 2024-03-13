@@ -1,0 +1,48 @@
+--用户信息表
+select *from uac_user
+
+select * from uac_role ur 
+
+select * from uac_user_role
+LIMIT 1,10
+
+
+select *from uac_authority ua 
+
+select a.*,b.authority_name ,b.project_flag  from uac_role_authority a 
+left join uac_authority b on a.authority_id = b.authority_id 
+where a.role_id = '1'
+
+select *from uac_app_info
+order by app_id desc
+
+select *from uac_user_app
+--应用埋点控制表
+select *from UAC_APP_CTL
+
+select *from uac_preset_event 
+where event_id = ''
+
+select *from UAC_PRESET_ATTR
+where attr_id = ''
+
+select * from uac_event_attr_tle
+
+select *from uac_event
+where app_id ='14'
+
+select *from uac_attr
+where app_id = '14'
+
+select * from UAC_EVENT_ATTR WHERE app_id = '14'
+
+--智能监控告警设置表
+select *from UAC_WARN_CYBER_SETTING
+--页面参数管理
+select *from UAC_APP_PAGE_PARAM
+
+select *from uac_request_rule
+
+select *from uac_menu
+
+SELECT * FROM UAC_APP_PAGE
