@@ -1,8 +1,17 @@
 行为分析ck的vpn
-118.244.200.104 surui@csii.com.cn   Csii@5136      测试环境	端口10443
+118.244.200.104 surui@csii.com.cn   Aa123456      测试环境	端口10443
 115.182.90.196  zhanghongwei_nj@csii.com.cn  Csii@13110  预生产old（生产环境）	端口10443
 118.244.200.104 zhanghongwei_nj@csii.com.cn  Csii@13110  预生产new	端口10443
 118.244.200.104	zhaofang@csii.com.cn	Zf123123	生产环境
+
+
+网关115.182.90.196  端口10443   
+mayupeng@csii.com.cn    Csii@7893
+
+已开通访问madp容器6000和6020端口访问权限，访问方式为通过VPN访问。通过访问宿主机IP+端口的方式访问容器对应的端口：
+              172.16.110.18：32127 --> madp:6000
+              172.16.110.18：31303 --> madp:6020
+
 前端地址：
 http://118.144.87.45:51234/login?redirect=%2FplateForm%2Fproject   测试环境  admin 123456
 http://172.16.61.20:30930/UACADMIN/index  vp预生产     admin  xwfx123456
@@ -49,6 +58,11 @@ kafka启动：
 tail -99f /opt/kafka/logs/server.log
 生产kafka启动用的server配置文件启动的
 
+nginx启动
+cd sbin
+./nginx -s reload
+
+
 查看端口：
 netstat -tulnp
 
@@ -88,7 +102,5 @@ kafka某些行内规定需要加认证方式，scram和oauthbearer二选一，�
 
 
 
- 1. 埋点方案里面只能看用户数，其他触发次数，人均次数，每启动发生数这三个看不了  2.页面分析里面的曝光时长看不到页面显示名，而且好像都是客户端的没有H5的，另外这个现实的时长是平均的，不是每次单一访问某个页面记录的曝光时长。 
- 3. 每次埋点事件触发，看不到触发的这个事件的对应设备类型这些数据，也就是我们自定义事件新增的时候设置的那些参数的值都看不到的问题 
- insertUacAppPageSelective
- insertUacAppPage
+新建标签时取值1上送有问题，我把取值1改成其他的描述，但是最终addTag接口还是上送取值1
+新建画像选择的时候，大于和小于
