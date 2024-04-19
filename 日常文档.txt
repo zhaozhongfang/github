@@ -1,8 +1,6 @@
 行为分析ck的vpn
-118.244.200.104 surui@csii.com.cn   Aa123456      测试环境	端口10443
-115.182.90.196  zhanghongwei_nj@csii.com.cn  Csii@13110  预生产old（生产环境）	端口10443
-118.244.200.104 zhanghongwei_nj@csii.com.cn  Csii@13110  预生产new	端口10443
-118.244.200.104	zhaofang@csii.com.cn	Zf123123	生产环境
+118.244.200.104	zhaofang@csii.com.cn	Zf123123	测试生产环境
+103.159.125.168	zhaofang@csii.com.cn	Zf123123	poc环境
 
 
 网关115.182.90.196  端口10443   
@@ -13,17 +11,15 @@ mayupeng@csii.com.cn    Csii@7893
               172.16.110.18：31303 --> madp:6020
 
 前端地址：
-http://118.144.87.45:51234/login?redirect=%2FplateForm%2Fproject   测试环境  admin 123456
-http://172.16.61.20:30930/UACADMIN/index  vp预生产     admin  xwfx123456
-http://172.16.100.103:19888				生产环境
+http://118.144.87.45:51234/UACADMIN   测试环境  admin 123456
+http://172.16.100.103:19888/UACADMIN/	生产环境admin  xwfx123456
+https://poc.csiihf.tech:9043/UACADMIN/	poc环境
 
-测试环境：
-2台clickhouse数据库，1台mysql
 
 堡垒机：
 https://aaaa.csii.com.cn:21843/core/auth/login/
-surui@csii.com.cn
-Csii@5136
+zhaofang@csii.com.cn
+Zf123123
 
 
 服务器
@@ -32,8 +28,6 @@ Csii@5136
 poc环境：root Csii@kelan0725
 
 
-后管用户
-amdin 123456
 
 clickhouse启动：
 systemctl stop clickhouse-server
@@ -53,10 +47,7 @@ nacos启动：
 
 kafka启动：
 /opt/kafka/bin/kafka-server-start.sh -daemon /opt/kafka/config/kraft/server.properties
-/opt/kafka/bin/kafka-server-start-jaas.sh -daemon /opt/kafka/config/kraft/server1.properties
-/opt/kafka/bin/kafka-server-start-jaas1.sh -daemon /opt/kafka/config/kraft/server11.properties
-tail -99f /opt/kafka/logs/server.log
-生产kafka启动用的server配置文件启动的
+
 
 nginx启动
 cd sbin
@@ -87,8 +78,6 @@ LIMIT 10;
 kill query where query_id = '77276aab-239d-474f-963d-1c231ba645b1';
 
 
-kafka某些行内规定需要加认证方式，scram和oauthbearer二选一，需求调整；
-
 
 优化1：废弃代码删除
 优化2：sundb环境整合，之前看到批量新增那块代码，业务逻辑极其差，这块需要重构逻辑
@@ -102,10 +91,21 @@ kafka某些行内规定需要加认证方式，scram和oauthbearer二选一，�
 
 
 
-新建标签时取值1上送有问题，我把取值1改成其他的描述，但是最终addTag接口还是上送取值1
-新建画像选择的时候，大于和小于上送的条件反过来了，大于上送了小于的英文，小于上送了大于的英文
+
 事件埋点的时候选择一个埋点平台报错
-新建事件的时候前端上送需要改一下，不需要把通用属性和用户属性上送
-事件修改前端上送的平台有问题，attrs集合中的platforms没有去掉平台
-计划中埋点删除报错数据库错误，前端的删除接口发送成功后，后面发送的/eventList接口上送的分页字段有问题
-添加用户属性老是报错不能以数字开头
+
+
+前端
+axios.create
+然后根据VUE_APP_BASE_API搜索
+打包：npm run build:prod
+
+
+poc环境
+nginx在90服务器/home/csii/下
+95admin
+96server
+
+
+生产环境
+nginx部署路径再/usr/local/
