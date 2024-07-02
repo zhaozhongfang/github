@@ -1,0 +1,8 @@
+查看 Group 详情
+bin/kafka-consumer-groups.sh --bootstrap-server server1:9092,server2:9092,server3:9092 --group uac --describe
+查看主题列表
+./kafka-topics.sh --bootstrap-server server1:9092 --list
+删除主题
+./kafka-topics.sh --bootstrap-server server1:9092,server2:9092,server3:9092 --topic event-filebeat-kafka --delete
+主题详情
+./kafka-topics.sh --bootstrap-server server1:9092,server2:9092,server3:9092 --topic event-filebeat-kafka --describe
