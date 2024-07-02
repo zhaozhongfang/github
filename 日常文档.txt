@@ -7,35 +7,39 @@
 mayupeng@csii.com.cn    Csii@7893
 
 已开通访问madp容器6000和6020端口访问权限，访问方式为通过VPN访问。通过访问宿主机IP+端口的方式访问容器对应的端口：
-              172.16.110.18：32127 --> madp:6000
-              172.16.110.18：31303 --> madp:6020
+              172.16.110.18：32127 --> madp:6000		root/csii1611
+              172.16.110.18：31303 --> madp:6020		root/csii1611
 
 前端地址：
-http://118.144.87.45:51234/UACADMIN   测试环境  admin 123456
+http://118.144.87.45:51234/UACADMIN/   测试环境  admin 123456
 http://172.16.100.103:19888/UACADMIN/	生产环境admin  xwfx123456
 https://poc.csiihf.tech:9043/UACADMIN/	poc环境
 
+移动开发平台(北京)
+https://unimanagertest.corp.powermobile.app:30244/login	admin	admin123
 
 堡垒机：
 https://aaaa.csii.com.cn:21843/core/auth/login/
 zhaofang@csii.com.cn
 Zf123123
-
+xiaoliqiang@csii.com.cn
+Csii@1615
 
 服务器
 测试环境：root Csii@kelan0720
 预生产环境：root passwd
 poc环境：root Csii@kelan0725
-
+渠道：csii/csii@kelan    root/passwd
 
 
 clickhouse启动：
-systemctl stop clickhouse-server
 /usr/bin/clickhouse-server --config-file /etc/clickhouse-server/config.xml --daemon
 clickhouse-client --user default
 
 mysql启动：
 service mysql start
+rpm -ivh perl-Data-Dumper-2.145-3.el7.x86_64.rpm
+rpm -qa|grep perl-Data
 
 redis启动：
 redis-server redis.config
@@ -45,8 +49,11 @@ nacos启动：
 单机：./startup.sh
 集群：./startup.sh -p embedded
 
-kafka启动：
+kafka启动Linux环境：
 /opt/kafka/bin/kafka-server-start.sh -daemon /opt/kafka/config/kraft/server.properties
+kafka启动Windows环境
+.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+.\bin\windows\kafka-server-start.bat .\config\server.properties
 
 
 nginx启动
@@ -78,7 +85,6 @@ LIMIT 10;
 kill query where query_id = '77276aab-239d-474f-963d-1c231ba645b1';
 
 
-
 优化1：废弃代码删除
 优化2：sundb环境整合，之前看到批量新增那块代码，业务逻辑极其差，这块需要重构逻辑
 优化3：uac_analysis_config，uac_analysis_config_share，uac_group_shared_role，uac_group_shared_user，uac_chart 考虑
@@ -90,22 +96,29 @@ kill query where query_id = '77276aab-239d-474f-963d-1c231ba645b1';
 优化8：其他
 
 
-
-
-事件埋点的时候选择一个埋点平台报错
-
-
 前端
 axios.create
-然后根据VUE_APP_BASE_API搜索
+然后根据VUE_APP_BASE_API搜索+
 打包：npm run build:prod
-
 
 poc环境
 nginx在90服务器/home/csii/下
 95admin
 96server
 
-
 生产环境
-nginx部署路径再/usr/local/
+nginx部署路径在/usr/local/
+
+定时批量删除日志文件
+cd /root/crontabRmLogs/
+
+
+外网地址http://118.144.87.37:30132/
+统一平台地址 http://118.144.87.37:30132/ 
+小程序开放平台 http://118.144.87.37:30132/portalweb/
+
+
+权限管理后端需要加一下校验，项目管理，平台管理
+定时任务统计，客群定时任务多台服务器会有问题
+地理位置问题
+状态码500的问题
