@@ -12,6 +12,7 @@ start "jmeter" cmd /k   E:\kaifazhongxin\apache-jmeter-5.5\bin\jmeter.bat
 E:
 cd E:\kafka_2.12-3.0.1\bin\windows
 start "zookeeper" cmd /k   E:\kafka_2.12-3.0.1\bin\windows\zookeeper-server-start.bat E:\kafka_2.12-3.0.1\config\zookeeper.properties
+timeout /t 10 /nobreak >nul
 E:
 cd E:\kafka_2.12-3.0.1\bin\windows
 start "kafka" cmd /k   E:\kafka_2.12-3.0.1\bin\windows\kafka-server-start.bat E:\kafka_2.12-3.0.1\config\server.properties
