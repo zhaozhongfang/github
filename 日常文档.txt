@@ -1,8 +1,7 @@
-bbb
 行为分析ck的vpn
 118.244.200.104	zhaofang@csii.com.cn	Zf123123	测试生产环境
 103.159.125.168	zhaofang@csii.com.cn	Zf123123	poc环境
-
+115.182.90.196	zhanghongwei_nj@csii.com.cn   Csii@13110	new环境
 
 网关115.182.90.196  端口10443   
 mayupeng@csii.com.cn    Csii@7893
@@ -35,6 +34,7 @@ poc环境：root Csii@kelan0725
 
 clickhouse启动：
 /usr/bin/clickhouse-server --config-file /etc/clickhouse-server/config.xml --daemon
+/home/clickhouse/bin/clickhouse-server --config-file /home/clickhouse/etc/clickhouse-server/config.xml --daemon
 clickhouse-client --user default
 
 mysql启动：
@@ -47,7 +47,7 @@ redis-server redis.config
 redis-sentinel sentinel.conf
 
 nacos启动：
-单机：./startup.sh
+单机：startup.cmd -m standalone
 集群：./startup.sh -p embedded
 
 kafka启动Linux环境：
@@ -120,6 +120,15 @@ cd /root/crontabRmLogs/
 
 
 权限管理后端需要加一下校验，项目管理，平台管理
-定时任务统计，客群定时任务多台服务器会有问题
-地理位置问题
 状态码500的问题
+配置文件生产
+
+
+
+
+中银消费：nacos版本，静态资源包将dist里的UACADMIN直接压缩成zip就可以
+上海信托：eureka版本，静态资源包没有UACADMIN，注意看微信收藏图片有注释
+行为采集：nacos版本
+https://www.kdocs.cn/l/cj8juoEM8OcO
+
+
